@@ -67,6 +67,8 @@ requires "upraises >= 0.1.0 & < 0.2.0"
 Now you can use `upraises` instead of `raises`:
 
 ```nim
+import upraises
+
 proc example {.upraises: [].} =
   # not allowed to raise any errors
 ```
@@ -89,7 +91,13 @@ proc example2 =
 {.pop.}
 ```
 
-Note the slightly different syntax for `push`; this is required because Nim currently [doesn't support][3] pushing custom pragmas.
+Note the slightly different syntax for `push`; this is required because Nim
+currently [doesn't support][3] pushing custom pragmas. When there's already a
+`push` proc in scope, you may need to use the fully qualified name:
+
+```nim
+upraises.push: {.upraises: [].}
+```
 
 [1]: https://nim-lang.org/docs/manual.html#effect-system-exception-tracking
 [2]: https://nim-lang.org/docs/manual.html#pragmas-push-and-pop-pragmas
